@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عيد أضحى مبارك ✨</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000;
+            transition: background 2s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* شاشة البداية السوداء والزرار المهتز */
+        #intro-screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            transition: opacity 1s ease;
+        }
+
+        .cta-btn {
+            padding: 15px 40px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            animation: shake 2s infinite;
+            outline: none;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        /* المحتوى الرئيسي بعد الضغط */
+        #main-content {
+            opacity: 0;
+            visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            z-index: 2;
+            transition: opacity 2s ease;
+            max-width: 90%;
+        }
+
+        .main-title {
+            font-size: 32px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,215,0,0.5);
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        /* إطار الصورة اللامع */
+        .image-container {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(90deg, #ff007f, #7f00ff, #ff007f);
+            background-size: 400% 400%;
+            animation: glow 3s linear infinite;
+            box-shadow: 0 0 25px rgba(255, 0, 127, 0.6);
+            margin-bottom: 25px;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #fff;
+        }
+
+        @keyframes glow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* نصوص التهنئة المتغيرة */
+        .text-box {
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .greeting-text {
+            font-size: 24px;
+            color: #fff;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            position: absolute;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .greeting-text.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* الجملة الأخيرة متغيرة الألوان */
+        .greeting-text.final-rainbow {
+            animation: rainbowText 3s infinite linear;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        @keyframes rainbowText {
+            0% { color: #ff6b6b; text-shadow: 0 0 10px #ff6b6b; }
+            25% { color: #feca57; text-shadow: 0 0 10px #feca57; }
+            50% { color: #1dd1a1; text-shadow: 0 0 10px #1dd1a1; }
+            75% { color: #54a0ff; text-shadow: 0 0 10px #54a0ff; }
+            100% { color: #ff6b6b; text-shadow: 0 0 10px #ff6b6b; }
+        }
+
+        /* العناصر المتساقطة (خرفان، بلالين، قلوب، كونفيتي) */
+        .falling-item {
+            position: absolute;
+            top: -10%;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% {
+                top: -10%;
+                transform: translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                top: 110%;
+                transform: translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="intro-screen">
+        <button class="cta-btn" onclick="startCelebration()">اضغط هنا 🎁</button>
+    </div>
+
+    <div id="main-content">
+        <div class="main-title">عيد أضحى مبارك 🐑✨</div>
+        <div class="image-container">
+            <img src="photo.jpg" alt="صورة العيد">
+        </div>
+        <div class="text-box">
+            <div class="greeting-text" id="text0">كل عام وانت برفقة أحبابك يا عنان 😍</div>
+            <div class="greeting-text" id="text1">أدام الله عليكم فرحة العيد كل عام</div>
+            <div class="greeting-text" id="text2">تقبل الله منا ومنكم صالح الأعمال</div>
+            <div class="greeting-text" id="text3">وأعاده الله عليكم وعلينا باليمن والخير والبركات</div>
+            <div class="greeting-text" id="text4">كل عام وأنتم بخير ❤区分</div>
+        </div>
+    </div>
+
+    <audio id="sheep-sound" src="Sheep.mp3" preload="auto"></audio>
+    <audio id="takbeer-sound" src="Takbeer.mp3" preload="auto" loop></audio>
+
+    <script>
+        function startCelebration() {
+            // 1. إخفاء شاشة البداية وتشغيل الصوت
+            document.getElementById('intro-screen').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('intro-screen').style.display = 'none';
+            }, 1000);
+
+            document.getElementById('sheep-sound').play().catch(e => console.log("الصوت محجوب"));
+            document.getElementById('takbeer-sound').play().catch(e => console.log("الصوت محجوب"));
+
+            // 2. تلوين الخلفية بتدرج فخم (بين الموف الغامق والوردي والأسود لتأثير فخم وكيوت)
+            document.body.style.background = "linear-gradient(135deg, #1a002c 0%, #4d004d 50%, #000000 100%)";
+
+            // 3. إظهار المحتوى الرئيسي
+            const mainContent = document.getElementById('main-content');
+            mainContent.style.visibility = 'visible';
+            mainContent.style.opacity = '1';
+
+            // 4. تشغيل عناصر السقوط (خرفان، بلالين، قلوب، كونفيتي)
+            setInterval(createFallingItem, 150);
+
+            // 5. التحكم في ظهور الجمل (كل جملة ثانيتين)
+            const totalTexts = 5;
+            let currentTextIndex = 0;
+
+            function showNextText() {
+                if (currentTextIndex > 0) {
+                    document.getElementById(`text${currentTextIndex - 1}`).classList.remove('active');
+                }
+                
+                if (currentTextIndex < totalTexts) {
+                    const currentText = document.getElementById(`text${currentTextIndex}`);
+                    currentText.classList.add('active');
+                    
+                    // إذا وصلنا للجملة الأخيرة، نخليها ثابتة وتغير ألوانها
+                    if (currentTextIndex === totalTexts - 1) {
+                        currentText.classList.add('final-rainbow');
+                        return; // قف هنا ولا تنتقل للجملة التالية
+                    }
+                    
+                    currentTextIndex++;
+                    setTimeout(showNextText, 2500); // 2.5 ثانية (نصف ثانية تأثير وثانيتين ثبات)
+                }
+            }
+            
+            setTimeout(showNextText, 1000);
+        }
+
+        // دالة إنشاء العناصر المتساقطة عشوائيًا
+        function createFallingItem() {
+            const types = ['🐑', '🎈', '🎈', '❤️', '✨', '🎉']; // الخيارات المتساقطة
+            const item = document.createElement('div');
+            item.classList.add('falling-item');
+            
+            // اختيار شكل عشوائي
+            item.innerText = types[Math.floor(Math.random() * types.length)];
+            
+            // إعدادات عشوائية للحجم والمكان والسرعة لتبدو طبيعية وكيوت
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.fontSize = Math.random() * (40 - 20) + 20 + 'px';
+            
+            const duration = Math.random() * (6 - 3) + 3; // تتساقط بين 3 لـ 6 ثواني
+            item.style.animationDuration = duration + 's';
+            
+            document.body.appendChild(item);
+
+            // حذف العنصر بعد انتهاء الأنميشن عشان الصفحة متهنجش
+            setTimeout(() => {
+                item.remove();
+            }, duration * 1000);
+        }
+    </script>
+</body>
+</html>
